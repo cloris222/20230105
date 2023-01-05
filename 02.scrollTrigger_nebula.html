@@ -79,6 +79,16 @@
     </div>
 </section>
 
+<!-- section03星球 -->
+<section id="section03" class="position-relative vh-100">
+    <img src="./img/planet-01.png" class="parallax01">
+    <img src="./img/planet-02.png" class="parallax02">
+    <img src="./img/planet-03.png" class="parallax03">
+</section>
+
+<!-- section04空的容器 -->
+<section id="section04" class="vh-100"></section>
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js' integrity='sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js' integrity='sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==' crossorigin='anonymous'></script>
     <!-- gsap主程式 -->
@@ -89,7 +99,51 @@
     <script>
         // <!-- 註冊套件 -->
         gsap.registerPlugin(ScrollTrigger)
+        // 使用timeline當作補間動畫的容器，當作進出場的時間位置
+        const tl1 = gsap.timeline({
+            scrollTrigger:{
+                trigger:'#section02',
+                start:'top 85%',
+                end:'bottom 100%',
+                toggleActions:'play none reverse none',
+                scrub:7,
+                markers:true
+            },
+            defaults:{
+                duration:1,
+                ease:'power1'
+            }
+        })
 
+        tl1
+            .from('.main-title',{
+                y:-200,
+                opacity:0
+            })
+            .from('.img01',{
+                x:-1000,
+            })
+            .from('.txt01',{
+                opacity:0
+            },'<50%')
+            .from('.img02',{
+                x:1000,
+            })
+            .from('.txt02',{
+                opacity:0
+            },'<50%')
+            .from('.img03',{
+                x:-1000,
+            })
+            .from('.txt03',{
+                opacity:0
+            },'<50%')
+            .from('.img04',{
+                x:1000,
+            })
+            .from('.txt04',{
+                opacity:0
+            },'<50%')
        
     </script>
     

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.css' integrity='sha512-bR79Bg78Wmn33N5nvkEyg66hNg+xF/Q8NA8YABbj+4sBngYhv9P8eum19hdjYcY7vXk/vRkhM3v/ZndtgEXRWw==' crossorigin='anonymous'/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+       body{
+        height: 100vh;
+        font-family:'Press Start 2P',cursive;
+        overflow-x:hidden;
+       }
+
+       section{
+        color: #fff;
+        height: 100%;
+        background: #000;
+        border-bottom: 1px solid #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+       }
+
+       section:nth-child(1){
+        background: url(./img/ff5.jpg)no-repeat center/cover;
+       }
+
+       section:nth-child(2){
+        background:linear-gradient(0deg,black,transparent),url(./img/bh3.jpg)no-repeat center/cover;
+       }
+
+       #text01{
+        width: 70%;
+        height: 250px;
+        font-size: 1.5rem;
+        padding: 1rem;
+        background: #070d7f;
+        border: 5px solid #eee;
+        border-radius: 10px;
+        position: absolute;
+        bottom: 5%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        /* 
+        設定水平垂直置中
+        left: 0;
+        right: 0;
+        top:0;
+        bottom:0;
+        margin: auto;
+        */
+        z-index: 0;
+       }
+
+       #text02{
+        width: 100%;
+        height: 100%;
+        color: red;
+        text-align: center;
+        font-size: 8rem;
+        font-family: '標楷體';
+        font-weight: 500;
+
+        display: none;
+        justify-content: space-evenly;
+        align-items: flex-end;
+       }
+
+       #text03{
+        font-size: 8rem;
+        display: none;
+       }
+    </style>
+</head>
+<body>
+   <section>
+    <div id="text01">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis minima quia temporibus deleniti consequatur praesentium incidunt molestias. Odit illo aspernatur est explicabo itaque, officia consectetur! Culpa voluptatibus magni saepe aliquid eveniet odit, rerum doloribus vel consectetur, recusandae ipsum!
+    </div>
+   </section>
+
+   <section>
+    <div id="text02">生化危機3</div>
+   </section>
+
+   <section>
+    <div id="text03">臨兵鬥者皆陣列在前</div>
+   </section>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js' integrity='sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js' integrity='sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==' crossorigin='anonymous'></script>
+    <!-- gsap主程式 -->
+    <script src="./umd/gsap.js"></script>
+    <!-- gsap plugins 必須在gsap主程式之後 -->
+    <script src="./umd/ScrollTrigger.js"></script>
+    <script src="./umd/SplitText.min.js"></script>
+
+    <script>
+        // <!-- 註冊套件 -->
+        gsap.registerPlugin(ScrollTrigger,SplitText)
+
+        // SplitText將文字拆開
+        // 可拆為三種類別chars(個別字母),words(個別詞),lines(個別句)
+       const text01 = new SplitText('#text01',{
+        type:'chars,words,lines'
+       })
+
+    //    splitText可將目標裡面的文字拆成chars words lines 提供使用，他們都是陣列，也是物件的一種，因此可以被gsap操作
+       console.log('chars:',text01.chars)
+       console.log('words:',text01.words)
+       console.log('lines:',text01.lines)
+
+       gsap.from(text01.chars,{
+        opacity:0,
+        stagger:0.1,
+       })
+
+       const text02 = new SplitText('#text02',{
+        type:'chars'
+       })
+       gsap.set('#text02',{
+        display:'flex',
+       })
+
+       gsap.set(text02.chars,{
+        margin:'0 -300'
+       })
+
+       gsap.from(text02.chars,{
+        scale:20,
+        filter:'blur(50px)',
+        duration:3,
+        opacity:0,
+        stagger:{
+            each:1,
+            from:'random'
+        }
+       })
+
+       gsap.from('#text02',{
+        background:'red',
+        filter:'blur(50px)',
+        backgroundFilter:'blur(100px)',
+        duration:5
+       })
+
+       const text03 = new SplitText('#text03',{
+        type:'chars'
+       })
+
+       gsap.set('#text03',{
+        display:'block'
+       })
+
+       const tl = gsap.timeline()
+       tl   
+        .from(text03.chars,{
+            stagger:0.5,
+            duration:0.3,
+            opacity:0,
+            x:100,
+            scale:100,
+            rotation:3600
+        })
+
+        .to(text03.chars,{
+            x:'random(-20000,20000)',
+            y:'random(-20000,20000)',
+            delay:2,
+            duration:1,
+            ease:'power3.inOut',
+            onComplete(){
+                // .revert()可將splitText拆分狀回復成原來DOM的文字內容
+                text03.revert()
+            }
+        })
+    </script>
+    
+</body>
+</html>
